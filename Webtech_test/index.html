@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Testing</title>
+</head>
+
+
+
+<body>
+    <form class="case" action="index.php" method="POST" enctype="multipart/form-data">
+
+    <input type="text" id="username" onchange="ajax()" placeholder="Enter Username"><span id="res"></span><br><br>
+    <input type="password" name="password" placeholder="Enter password"><br>
+    <label for="department">Choose Department:</label>
+    <select name="department" id="department">
+    <option value="cse">CSE</option>
+    <option value="eee">EEE</option>
+    <option value="bba">BBA</option>
+    <option value="arch">Architecture</option>
+    </select>
+
+    
+    
+    
+
+
+    <br>
+    <input type="submit" value="Sign Up" >
+    </form>
+</body>
+<script>
+    function ajax(){
+
+        let username = document.getElementById("username").value;
+
+        let xhr = new XMLHttpRequest()
+
+        xhr.open("POST","check.php",true)
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.send("username="+username);
+
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState ==4 && xhr.status == 200){
+                let res = xhr.responseText.trim();
+                console.log(res);
+                if(res == "exists"){
+
+                document.getElementById("res").innerHTML="User already exist";
+            }else{
+                document.getElementById("res").innerHTML="User not exist";
+            }
+        }
+        }
+
+
+    }
+</script>
+</html>
